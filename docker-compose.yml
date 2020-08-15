@@ -1,0 +1,22 @@
+version: '3.1'
+services:
+  test-api:
+    image: java:1.8
+    container_name: test-api
+    restart: always
+    privileged: true
+    network_mode: host
+    ports:
+      - 8080:8080
+    environment:
+      TZ: Asia/Shanghai
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+    volumes:
+      - "./app:/app:rw"
+      - "/etc/localtime:/etc/localtime:ro"
+    build:
+      context: .
+      dockerfile: Dockerfile
